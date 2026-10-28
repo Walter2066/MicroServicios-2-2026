@@ -1,0 +1,25 @@
+<% include('layout', { body: null }) %>
+<h2>Lista de Productos</h2>
+<table>
+ <thead>
+ <tr>
+ <th>Nombre</th>
+ <th>Precio</th>
+ <th>Stock</th>
+ <th>Acciones</th>
+ </tr>
+ </thead>
+ <tbody>
+ <% productos.forEach(producto => { %>
+ <tr>
+ <td><%= producto.Nombre %></td>
+ <td><%= producto.Precio %></td>
+ <td><%= producto.Stock %></td>
+ <td>
+ <a href="/edit/<%= producto.Id %>">Editar</a>
+ <a href="/delete/<%= producto.Id %>">Eliminar</a>
+ </td>
+ </tr>
+ <% }) %>
+ </tbody>
+</table>
