@@ -1,0 +1,140 @@
+</html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elecciones ORM JavaScript</title>
+
+  <style>
+    body {
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #263b63;
+      color: white;
+      padding: 30px;
+    }
+
+    main {
+      margin: 40px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 5px;
+    }
+
+    p {
+      color: #555;
+    }
+
+    a,
+    button {
+      display: inline-block;
+      background: #263b63;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #263b63;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f4f4f4;
+    }
+
+    .eliminar {
+      background-color: #a83232;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Elecciones ORM JavaScript</h1>
+  </header>
+
+  <main>
+    <h2>Gestión de candidatos</h2>
+    <p>Listado de candidatos registrados en el sistema.</p>
+    <a href="/candidatos/crear">Registrar candidato</a>
+    <table>
+      <thead>
+        <tr>
+          <th>CI</th>
+          <th>Nombres</th>
+          <th>Primer apellido</th>
+          <th>Segundo apellido</th>
+          <th>Cargo</th>
+          <th>Lugar</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if (lista.length > 0) { %>
+
+        <% lista.forEach(candidato => { %>
+        <tr>
+          <td><%= candidato.ci %></td>
+          <td><%= candidato.nombres %></td>
+          <td><%= candidato.apellido1 %></td>
+          <td><%= candidato.apellido2 || "-" %></td>
+          <td><%= candidato.cargo?.nombre || "-" %></td>
+          <td><%= candidato.lugar?.nombre || "-" %></td>
+
+          <td>
+            <a href="/candidatos/editar/<%= candidato.ci %>">
+              Editar
+            </a>
+
+            <form action="/candidatos/eliminar/<%= candidato.ci %>" method="POST" style="display:inline;">
+
+              <button type="submit" class="eliminar">
+                Eliminar
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+
+        <% } else { %>
+
+        <tr>
+          <td colspan="7">No hay candidatos registrados.</td>
+        </tr>
+
+        <% } %>
+      </tbody>
+    </table>
+
+  </main>
+
+</body>
+
+</html>

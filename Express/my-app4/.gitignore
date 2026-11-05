@@ -1,0 +1,11 @@
+# Dependencias de Node (NUNCA se deben subir)
+node_modules/
+
+# Archivos de entorno / Variables secretas
+.env
+
+# Archivos del sistema y logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store

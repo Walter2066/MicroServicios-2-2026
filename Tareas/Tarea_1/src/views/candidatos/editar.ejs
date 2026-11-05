@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar candidato - Elecciones ORM</title>
+
+  <style>
+    body {
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #263b63;
+      color: white;
+      padding: 30px;
+    }
+
+    main {
+      margin: 40px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 5px;
+    }
+
+    p {
+      color: #555;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button,
+    a {
+      display: inline-block;
+      background: #263b63;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .volver {
+      background-color: #777;
+    }
+
+    button:hover,
+    a:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Elecciones ORM JavaScript</h1>
+  </header>
+
+  <main>
+    <h2>Editar candidato</h2>
+    <p>Modifique los datos del candidato seleccionado.</p>
+
+    <form action="/candidatos/editar/<%= candidato.ci %>" method="POST">
+
+      <label for="ci">Carnet de identidad:</label>
+      <input type="text" id="ci" name="ci" value="<%= candidato.ci %>" maxlength="12" readonly />
+
+      <label for="nombres">Nombres:</label>
+      <input type="text" id="nombres" name="nombres" value="<%= candidato.nombres %>" maxlength="60" required />
+
+      <label for="apellido1">Primer apellido:</label>
+      <input type="text" id="apellido1" name="apellido1" value="<%= candidato.apellido1 %>" maxlength="30" required />
+
+      <label for="apellido2">Segundo apellido:</label>
+      <input type="text" id="apellido2" name="apellido2" value="<%= candidato.apellido2 || '' %>" maxlength="40" />
+
+      <label for="cargo_id">Cargo:</label>
+      <select id="cargo_id" name="cargo_id" required>
+        <option value="">Seleccione un cargo</option>
+
+        <% cargos.forEach(cargo => { %>
+        <option value="<%= cargo.id %>" <%= candidato.cargo?.id == cargo.id ? 'selected' : '' %>>
+          <%= cargo.nombre %>
+        </option>
+        <% }); %>
+      </select>
+
+      <label for="lugar_id">Lugar:</label>
+      <select id="lugar_id" name="lugar_id" required>
+        <option value="">Seleccione un lugar</option>
+
+        <% lugares.forEach(lugar => { %>
+        <option value="<%= lugar.id %>" <%= candidato.lugar?.id == lugar.id ? 'selected' : '' %>>
+          <%= lugar.nombre %>
+        </option>
+        <% }); %>
+      </select>
+
+      <button type="submit">Guardar cambios</button>
+
+      <a href="/candidatos" class="volver">Cancelar</a>
+
+    </form>
+  </main>
+
+</body>
+
+</html>
